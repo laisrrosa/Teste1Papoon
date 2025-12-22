@@ -1,0 +1,15 @@
+Interface Site Papoon
+
+1- Página de Login
+O site deve ser protegido por login e senha, para que o acesso seja restrito à pessoas autorizadas.
+
+
+2-Página Principal
+Página com o nome e logo Papoon, ... +
+
+
+3-Página com evolução de dados dos influencers
+Essa página irá mostrar a evolução de dados referentes à número de seguidores, likes e seguidores confiáveis dos usuários. Essa evolução pode ser mostrada por gráfico de linhas
+
+4-Página de Rankeamento de Influencers
+Página que mostrará quais influencers são mais promissores comparados com outros, quais tiveram melhores evoluções e quais diminuiram seus índices de engajamento.
