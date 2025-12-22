@@ -1,0 +1,19 @@
+credentials:
+    usernames:
+        lais.rosa:
+            email: lais@papoon.com
+            loged_in: False 
+            name: Laís Rodrigues
+            password: laisdarosa
+        andre.potengy:
+            email: andre.potengy@papoon.com
+            loged_in: False
+            name: Andre potengy
+            password: 1234@
+cookie:
+    expiry_days: 1
+    key: some_signature_key
+    name: some_cookie_name
+    
+
+          
