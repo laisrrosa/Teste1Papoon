@@ -65,6 +65,19 @@ try:
                             xaxis=dict(gridcolor='rgba(255,255,255,0.1)', tickformat="%b %Y"),
                             yaxis=dict(gridcolor='rgba(255,255,255,0.1)'))
         st.plotly_chart(fig_q, use_container_width=True, theme=None)
+        
+        try:
+            results = px.get_trendline_results(fig_q)
+            slope = results.iloc[0]["px_fit_results"].params[1]
+            
+            if slope > 0:
+                st.success(f"📈 **Ascensão:** O perfil de {perfil_escolhido} apresenta melhora na qualidade do público.")
+            elif slope < 0:
+                st.error(f"📉 **Queda:** O perfil de {perfil_escolhido} apresenta declínio na qualidade do público.")
+            else:
+                st.warning(f"➖ **Estável:** A qualidade do público de {perfil_escolhido} está constante.")
+        except:
+            st.info("ℹ️ Dados insuficientes para calcular tendência estatística de qualidade.")
     else:
         st.warning("⚠️ Perfil não encontrado no arquivo de Qualidade.")
 
@@ -90,6 +103,19 @@ try:
                             xaxis=dict(gridcolor='rgba(255,255,255,0.1)', tickformat="%b %Y"),
                             yaxis=dict(gridcolor='rgba(255,255,255,0.1)'))
         st.plotly_chart(fig_s, use_container_width=True, theme=None)
+        
+        try:
+            results_s = px.get_trendline_results(fig_s)
+            slope_s = results_s.iloc[0]["px_fit_results"].params[1]
+            
+            if slope_s > 0:
+                st.success(f"📈 **Ascensão:** A base de seguidores de {perfil_escolhido} está crescendo.")
+            elif slope_s < 0:
+                st.error(f"📉 **Queda:** A base de seguidores de {perfil_escolhido} está diminuindo.")
+            else:
+                st.warning(f"➖ **Estável:** O número de seguidores de {perfil_escolhido} está estagnado.")
+        except:
+            st.info("ℹ️ Dados insuficientes para calcular tendência estatística de seguidores.")
     else:
         # Se o perfil está na qualidade mas não nos seguidores, ele avisa aqui:
         st.error(f"❌ Não foram encontrados dados de seguidores para o perfil: {perfil_escolhido}")

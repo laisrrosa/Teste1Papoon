@@ -7,6 +7,8 @@ import pandas as pd
 import plotly.express as px 
 st.set_page_config(page_title="Papoon - Dashboard", layout="wide")
 
+
+#função para mudar o fundo para roxo
 def mudar_fundo():
     st.markdown(
         """
@@ -25,9 +27,9 @@ def mudar_fundo():
         unsafe_allow_html=True  # O nome correto do parâmetro é este
     )
 
-mudar_fundo()
-with open('config.yaml') as file:
-    config= yaml.load(file, Loader=SafeLoader)
+mudar_fundo() #chama a função de mudar fundo
+with open('config.yaml') as file: 
+    config= yaml.load(file, Loader=SafeLoader) #carrega o arquivo com login e senha dos usuários
     
 authenticator= stauth.Authenticate(
     config['credentials'],
@@ -39,7 +41,7 @@ authenticator= stauth.Authenticate(
 authenticator.login()
 
 
-if st.session_state.get("authentication_status"):
+if st.session_state.get("authentication_status"):  #se o usuário inserir usuário e senha corretos, abrir na página principal
     st.session_state["logged_in"] = True
     authenticator.logout(location="sidebar")
     st.write(f"Bem-vindo, *{st.session_state['name']}*")
@@ -94,17 +96,26 @@ if st.session_state.get("authentication_status"):
 
     # 3. Resumo Visual Rápido
     st.subheader("📊 Panorama Geral")
-    # Criando um gráfico simples de barras com todos os 80 para ver a distribuição
+
+    # Criando o gráfico
     fig_home = px.bar(df_seg, x='Perfil', y='2025-12', title="Distribuição de Seguidores por Perfil", template="none")
-    fig_home.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color="white"))
+
+    # Ajustando a ordem para decrescente e as cores do layout
+    fig_home.update_layout(
+        xaxis={'categoryorder':'total descending'}, # Esta linha faz a ordenação
+        paper_bgcolor='rgba(0,0,0,0)', 
+        plot_bgcolor='rgba(0,0,0,0)', 
+        font=dict(color="white")
+    )
+
     st.plotly_chart(fig_home, use_container_width=True, theme=None)
-        
+            
     
 
     
-elif st.session_state.get("authentication_status") is False:
+elif st.session_state.get("authentication_status") is False: #se o usuário inserir usuário e senha incorretos, mostrar mensagem de erro
     st.error('Usuário/Senha inválido(s)')
-elif st.session_state.get("authentication_status") is None:
+elif st.session_state.get("authentication_status") is None: #se o usuário não inserir usuário ou senha, mostrar mensagem de errp
     st.error('Digite um usuário e senha')
     
 
