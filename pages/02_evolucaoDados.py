@@ -4,7 +4,7 @@ import plotly.express as px
 
 # 1. Verificar Login
 if not st.session_state.get("authentication_status"):
-    st.error("Acesso negado. Por favor, faça login na página principal.")
+    st.error("Acesso negado. Por favor, faça login na página principal.") #se não tiver feito login, dá erro
     st.stop()
 
 # 2. Configuração da Página e Estilo
@@ -15,11 +15,17 @@ st.markdown("""
     .stApp p, .stApp h1, .stApp h2, .stApp h3, .stApp span, .stApp label { color: white !important; }
     </style>
 """, unsafe_allow_html=True)
+col_espaco, col_logo = st.columns([4, 1])
+    
+with col_logo:
+        # Substitua 'logo.png' pelo caminho do seu arquivo ou URL
+    st.image("logo_Papoon-13 (1).png", width=530)
 
 
 
 
-st.title("📈 Evolução de Performance")
+with col_espaco:
+    st.title("📈 Evolução de Performance") #título da página
 
 try:
     # --- CARREGAMENTO DE DADOS ---
@@ -44,7 +50,7 @@ try:
     # --- SEÇÃO 1: QUALIDADE ---
     st.header("💎 Qualidade do Público")
     
-    # Gráfico de Qualidade
+    # Gráfico de público de qualidade
     top_df_qual_num = df_qual_num[df_qual_num['Perfil'].isin(top_perfis_names)]
     top_df_qual_num['Perfil'] = pd.Categorical(top_df_qual_num['Perfil'], categories=top_perfis_names, ordered=True)
     df_plot_qual = top_df_qual_num.sort_values('Perfil').melt(id_vars=['Perfil'], value_vars=date_cols, var_name='Mês', value_name='Qualidade')

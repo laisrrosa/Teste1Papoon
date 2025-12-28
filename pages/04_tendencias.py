@@ -6,17 +6,25 @@ import plotly.express as px
 if not st.session_state.get("authentication_status"):
     st.error("Por favor, faça login na página principal.")
     st.stop()
+# Criar 2 colunas: a primeira ocupa 80% do espaço, a segunda 20%
+col_espaco, col_logo = st.columns([4, 1])
+    
+with col_logo:
+        # Substitua 'logo.png' pelo caminho do seu arquivo ou URL
+    st.image("logo_Papoon-13 (1).png", width=530)
+
+
 
 # 2. Configuração e Estilo (Fundo Roxo)
 st.set_page_config(page_title="Tendências", layout="wide")
 st.markdown("""
     <style>
-    .stApp { background-color: #6A0DAD; }
+    .stApp { background-color:#633BBC; }
     .stApp p, .stApp h1, .stApp h2, .stApp h3, .stApp span, .stApp label { color: white !important; }
     </style>
 """, unsafe_allow_html=True)
-
-st.title("🔮 Análise de Tendência Individual")
+with col_espaco:
+    st.title("🔮 Análise de Tendência Individual")
 
 try:
     # --- CARREGAMENTO E LIMPEZA ---

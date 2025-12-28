@@ -4,21 +4,28 @@ import plotly.express as px
 
 # Verificar Login
 if not st.session_state.get("authentication_status"):
-    st.error("Por favor, faça login na página principal.")
+    st.error("Por favor, faça login na página principal.") #se não estiver logado dá erro
     st.stop()
 
 # Configuração e Estilo
 st.set_page_config(page_title="Benchmarking", layout="wide")
 
-st.markdown("<style>.stApp { background-color: #6A0DAD; } .stApp p, .stApp h1, .stApp h2, .stApp h3, .stApp span, .stApp label { color: white !important; }</style>", unsafe_allow_html=True)
+st.markdown("<style>.stApp { background-color: #633BBC; } .stApp p, .stApp h1, .stApp h2, .stApp h3, .stApp span, .stApp label { color: white !important; }</style>", unsafe_allow_html=True)
+# Criar 2 colunas: a primeira ocupa 80% do espaço, a segunda 20%
+col_espaco, col_logo = st.columns([4, 1])
+    
+with col_logo:
+        # Substitua 'logo.png' pelo caminho do seu arquivo ou URL
+    st.image("logo_Papoon-13 (1).png", width=530)
+with col_espaco:
 
-st.title("📊 Benchmarking de Grupos")
-st.markdown("""
-Esta página mostra as porcentagens atuais do público de qualidade por perfil.
-""")
+    st.title("📊 Benchmarking de Grupos") #título
+    st.markdown("""
+    Esta página mostra as porcentagens atuais do público de qualidade por perfil.
+    """)
 
 try:
-    df = pd.read_csv('evolucao_qualidade_publico.csv')
+    df = pd.read_csv('evolucao_qualidade_publico.csv') #pega os dados referente à qualidade do público
     date_cols = [c for c in df.columns if c != 'Perfil']
     for col in date_cols:
         df[col] = df[col].astype(str).str.replace('%', '').astype(float)
@@ -105,7 +112,7 @@ try:
 except Exception as e:
     st.error(f"Erro: {e}")
 
-# --- SEÇÃO: BENCHMARK DE SEGUIDORES ---
+# --- SEÇÃO: BENCHMARK DE SEGUIDORES --- adicionada 27/12/2025 por Laís Rosa
 st.markdown("---")
 st.title("📈 Benchmarking de Seguidores")
 st.markdown("Análise da distribuição de tamanho da base dos perfis.")

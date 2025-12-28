@@ -5,7 +5,7 @@ from yaml.loader import SafeLoader
 import os
 import pandas as pd
 import plotly.express as px 
-st.set_page_config(page_title="Papoon - Dashboard", layout="wide")
+st.set_page_config(page_title="Papoon - Dashboard", layout="wide") #configurando a página de dashboard
 
 
 #função para mudar o fundo para roxo
@@ -15,7 +15,7 @@ def mudar_fundo():
         <style>
         /* Muda o fundo de toda a página */
         .stApp {
-            background-color: #6A0DAD;
+            background-color:#633BBC;
         }
         
         /* Ajusta a cor do texto para branco para dar contraste */
@@ -44,55 +44,64 @@ authenticator.login()
 if st.session_state.get("authentication_status"):  #se o usuário inserir usuário e senha corretos, abrir na página principal
     st.session_state["logged_in"] = True
     authenticator.logout(location="sidebar")
-    st.write(f"Bem-vindo, *{st.session_state['name']}*")
-    st.title("🚀 Papoon ")
+    # Criar 2 colunas: a primeira ocupa 80% do espaço, a segunda 20%
+    col_espaco, col_logo = st.columns([4, 1])
+    
+    with col_logo:
+        # Substitua 'logo.png' pelo caminho do seu arquivo ou URL
+        st.image("logo_Papoon-13 (1).png", width=530)
+    with col_espaco:
+        st.write(f"Bem-vindo, *{st.session_state['name']}*")
+        st.title("🚀 Papoon ")
 
 # Carregar dados para os cálculos rápidos
     df_qual = pd.read_csv('evolucao_qualidade_publico.csv')
     df_seg = pd.read_csv('evolucao_seguidores.csv')
 
 # Cálculos Rápidos
-    total_seguidores = df_seg['2025-12'].sum()
-    media_qualidade = pd.to_numeric(df_qual['2025-12'].str.replace('%','')).mean()
-    st.header("Resumo de dados dos seguidores")
+    total_seguidores = df_seg['2025-12'].sum() #soma o total de seguidores do último mês
+    media_qualidade = pd.to_numeric(df_qual['2025-12'].str.replace('%','')).mean() #média da porcentagem do público de qualidade
+    st.header("Resumo de dados dos seguidores") #título
     # 1. Layout de Métricas (KPIs)
     col1, col2, col3 = st.columns(3)
-    with col1:
+    with col1: #coluna 1
         st.metric("Audiência Total", f"{total_seguidores:,.0f}".replace(',', '.'))
-    with col2:
+    with col2:  #coluna 2
         st.metric("Qualidade Média", f"{media_qualidade:.1f}%")
-    with col3:
+    with col3:  #coluna 3
         st.metric("Perfis Ativos", len(df_qual))
 
-    st.markdown("---")
+    st.markdown("---") #divisão da página
 
     # 2. Destaques do Mês (Pódio)
-    st.subheader("🏆 Destaques em Qualidade (Dezembro)")
+    st.subheader("🏆 Destaques em Qualidade (Dezembro)") #título da sessão
     top_3_seg = df_qual[['Perfil', '2025-12']].copy()
     top_3_seg['Val'] = pd.to_numeric(top_3_seg['2025-12'].str.replace('%',''))
-    top_3_seg= top_3_seg.sort_values('Val', ascending=False).head(3)
+    top_3_seg= top_3_seg.sort_values('Val', ascending=False).head(3) #pega os 3 maiores valores do público de qualidade
 
-
+     #criando 3 colunas 
     c1, c2, c3 = st.columns(3)
-    for idx, row in enumerate(top_3_seg.itertuples()):
+    for idx, row in enumerate(top_3_seg.itertuples()): #faz os perfis aparecerem na ordem do maior para o menor público de qualidade
         with [c1, c2, c3][idx]:
             st.info(f"**{idx+1}º Lugar**\n\n{row.Perfil} ({row.Val}%)")
             
-    st.subheader("🏆 Destaques em Seguidores (Dezembro)")
+    st.subheader("🏆 Destaques em Seguidores (Dezembro)") #título da sessão
     top_3_seg = df_seg[['Perfil', '2025-12']].copy()
     top_3_seg['Val'] = pd.to_numeric(top_3_seg['2025-12'], errors= 'coerce')
-    top_3_seg = top_3_seg.sort_values('Val', ascending=False).head(3)
+    top_3_seg = top_3_seg.sort_values('Val', ascending=False).head(3) #pega os 3 maiores valores do número de seguidores
+
 
     c11, c22, c33 = st.columns(3)
     colunas = [c11, c22, c33]
 
-    for idx, row in enumerate(top_3_seg.itertuples()):
-        with colunas[idx]:
+    for idx, row in enumerate(top_3_seg.itertuples()): #faz os perfis aparecerem na ordem do maior para o menor número de seguidores
+        with [c1, c2, c3][idx]:
+         with colunas[idx]:
             # Formata o número com ponto separador de milhar (ex: 12.783)
             valor_formatado = f"{row.Val:,.0f}".replace(",", ".")
             st.success(f"**{idx+1}º Lugar**\n\n{row.Perfil}\n\n{valor_formatado} seguidores")
 
-    st.markdown("---")
+    st.markdown("---") #divisão da página
 
     # 3. Resumo Visual Rápido
     st.subheader("📊 Panorama Geral")
@@ -100,7 +109,7 @@ if st.session_state.get("authentication_status"):  #se o usuário inserir usuár
     # Criando o gráfico
     fig_home = px.bar(df_seg, x='Perfil', y='2025-12', title="Distribuição de Seguidores por Perfil", template="none")
 
-    # Ajustando a ordem para decrescente e as cores do layout
+    # Ajustando a ordem para decrescente e as cores do layout, atualizado 27/12/2025 por Laís Rosa
     fig_home.update_layout(
         xaxis={'categoryorder':'total descending'}, # Esta linha faz a ordenação
         paper_bgcolor='rgba(0,0,0,0)', 
