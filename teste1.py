@@ -50,11 +50,9 @@ if st.session_state.get("authentication_status"):  #se o usuário inserir usuár
     st.session_state["logged_in"] = True
     authenticator.logout(location="sidebar")
     # Criar 2 colunas: a primeira ocupa 80% do espaço, a segunda 20% para adicionar logo. atualizado em 27/12/2025 por laís Rodrigues
-    col_espaco, col_logo = st.columns([4, 1])
     
-    with col_logo:
-        # Substitua 'logo.png' pelo caminho do seu arquivo ou URL
-        st.image("logo_Papoon-13 (1).png", width=530)
+    
+    
     with col_espaco:
         st.write(f"Bem-vindo, *{st.session_state['name']}*")
         st.title("🚀 Papoon ")
