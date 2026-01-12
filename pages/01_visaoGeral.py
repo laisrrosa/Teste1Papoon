@@ -39,6 +39,7 @@ ARQUIVOS = {
 }
 
 USUARIO_DONO = "lais.rosa"
+USUARIO_DONO2="andre.potengy"
 
 # ===============================
 # 4. FUNÇÕES DE DADOS
@@ -79,7 +80,7 @@ def process_data_view(df_raw):
 # ===============================
 username_logado = st.session_state.get("username")
 
-if username_logado == USUARIO_DONO:
+if username_logado == USUARIO_DONO or username_logado== USUARIO_DONO2:
     with st.expander("🔐 Painel Administrativo", expanded=False):
 
         st.markdown(
