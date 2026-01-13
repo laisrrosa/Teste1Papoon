@@ -10,6 +10,11 @@ credentials:
             loged_in: False
             name: Andre potengy
             password: 1234@
+        luiza.prevato:
+            email: luiza@papoon.com
+            loged_in: False
+            name: Luiza Prevato
+            password: 1234@
 cookie:
     expiry_days: 1
     key: some_signature_key
