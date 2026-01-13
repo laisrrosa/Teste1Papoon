@@ -28,8 +28,8 @@ with col_espaco:
 
 try:
     # --- CARREGAMENTO E LIMPEZA ---
-    df_qual = pd.read_csv('evolucao_qualidade_publico.csv')
-    df_seg = pd.read_csv('evolucao_seguidores.csv')
+    df_qual = pd.read_csv('publico_qualidade.csv')
+    df_seg = pd.read_csv('evolucao_seguidores4.csv')
     
     # Padronização agressiva para evitar erros de nomes
     df_qual['Perfil'] = df_qual['Perfil'].astype(str).str.strip()

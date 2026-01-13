@@ -58,12 +58,12 @@ if st.session_state.get("authentication_status"):  #se o usuário inserir usuár
         st.title("🚀 Papoon ")
 
 # Carregar dados para os cálculos rápidos
-    df_qual = pd.read_csv('evolucao_qualidade_publico.csv')
-    df_seg = pd.read_csv('evolucao_seguidores.csv')
+    df_qual = pd.read_csv('publico_qualidade.csv')
+    df_seg = pd.read_csv('evolucao_seguidores4.csv')
 
 # Cálculos Rápidos
-    total_seguidores = df_seg['2025-12'].sum() #soma o total de seguidores do último mês
-    media_qualidade = pd.to_numeric(df_qual['2025-12'].str.replace('%','')).mean() #média da porcentagem do público de qualidade
+    total_seguidores = df_seg['2026-01'].sum() #soma o total de seguidores do último mês
+    media_qualidade = pd.to_numeric(df_qual['2026-01'].str.replace('%','')).mean() #média da porcentagem do público de qualidade
     st.header("Resumo de dados dos seguidores") #título
     # 1. Layout de Métricas (KPIs)
     col1, col2, col3 = st.columns(3)
@@ -77,9 +77,9 @@ if st.session_state.get("authentication_status"):  #se o usuário inserir usuár
     st.markdown("---") #divisão da página
 
     # 2. Destaques do Mês (Pódio)
-    st.subheader("🏆 Destaques em Qualidade (Dezembro)") #título da sessão
-    top_3_seg = df_qual[['Perfil', '2025-12']].copy()
-    top_3_seg['Val'] = pd.to_numeric(top_3_seg['2025-12'].str.replace('%',''))
+    st.subheader("🏆 Destaques em Qualidade (Janeiro)") #título da sessão
+    top_3_seg = df_qual[['Perfil', '2026-01']].copy()
+    top_3_seg['Val'] = pd.to_numeric(top_3_seg['2026-01'].str.replace('%',''))
     top_3_seg= top_3_seg.sort_values('Val', ascending=False).head(3) #pega os 3 maiores valores do público de qualidade
 
      #criando 3 colunas 
@@ -88,9 +88,9 @@ if st.session_state.get("authentication_status"):  #se o usuário inserir usuár
         with [c1, c2, c3][idx]:
             st.info(f"**{idx+1}º Lugar**\n\n{row.Perfil} ({row.Val}%)")
             
-    st.subheader("🏆 Destaques em Seguidores (Dezembro)") #título da sessão
-    top_3_seg = df_seg[['Perfil', '2025-12']].copy()
-    top_3_seg['Val'] = pd.to_numeric(top_3_seg['2025-12'], errors= 'coerce')
+    st.subheader("🏆 Destaques em Seguidores (Janeiro)") #título da sessão
+    top_3_seg = df_seg[['Perfil', '2026-01']].copy()
+    top_3_seg['Val'] = pd.to_numeric(top_3_seg['2026-01'], errors= 'coerce')
     top_3_seg = top_3_seg.sort_values('Val', ascending=False).head(3) #pega os 3 maiores valores do número de seguidores
 
 
@@ -110,7 +110,7 @@ if st.session_state.get("authentication_status"):  #se o usuário inserir usuár
     st.subheader("📊 Panorama Geral")
 
     # Criando o gráfico
-    fig_home = px.bar(df_seg, x='Perfil', y='2025-12', title="Distribuição de Seguidores por Perfil", template="none")
+    fig_home = px.bar(df_seg, x='Perfil', y='2026-01', title="Distribuição de Seguidores por Perfil", template="none")
 
     # Ajustando a ordem para decrescente e as cores do layout, atualizado 27/12/2025 por Laís Rosa
     fig_home.update_layout(

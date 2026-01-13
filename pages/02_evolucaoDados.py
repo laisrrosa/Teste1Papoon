@@ -29,8 +29,8 @@ with col_espaco:
 
 try:
     # --- CARREGAMENTO DE DADOS ---
-    df_qual_raw = pd.read_csv('evolucao_qualidade_publico.csv')
-    df_seg = pd.read_csv('evolucao_seguidores.csv')
+    df_qual_raw = pd.read_csv('publico_qualidade.csv')
+    df_seg = pd.read_csv('evolucao_seguidores4.csv')
     
     date_cols = [c for c in df_qual_raw.columns if c != 'Perfil']
     
