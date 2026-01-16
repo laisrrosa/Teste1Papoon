@@ -25,7 +25,7 @@ with col_espaco:
     """)
 
 try:
-    df = pd.read_csv('publico_qualidade.csv') #pega os dados referente à qualidade do público
+    df = pd.read_csv('qualidade_publico_ficticia.csv') #pega os dados referente à qualidade do público
     date_cols = [c for c in df.columns if c != 'Perfil']
     for col in date_cols:
         df[col] = df[col].astype(str).str.replace('%', '').astype(float)
@@ -120,7 +120,7 @@ st.markdown("Análise da distribuição de tamanho da base dos perfis.")
 try:
     # 1. Carregar dados de seguidores
     # Ajuste o nome do arquivo se necessário
-    df_seg = pd.read_csv('evolucao_seguidores4.csv')
+    df_seg = pd.read_csv('seguidores_ficticios.csv')
     
     # Identificar colunas de data (excluindo 'Perfil')
     cols_data_seg = [c for c in df_seg.columns if c != 'Perfil']

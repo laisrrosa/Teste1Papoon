@@ -58,8 +58,8 @@ if st.session_state.get("authentication_status"):  #se o usuário inserir usuár
         st.title("🚀 Papoon ")
 
 # Carregar dados para os cálculos rápidos
-    df_qual = pd.read_csv('publico_qualidade.csv')
-    df_seg = pd.read_csv('evolucao_seguidores4.csv')
+    df_qual = pd.read_csv('qualidade_publico_ficticia.csv')
+    df_seg = pd.read_csv('seguidores_ficticios.csv')
 
 # Cálculos Rápidos
     total_seguidores = df_seg['2026-01'].sum() #soma o total de seguidores do último mês
